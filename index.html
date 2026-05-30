@@ -18,8 +18,8 @@
 <link rel="dns-prefetch" href="https://wa.me">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=optional">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
 /* ── RESET & ROOT ── */
@@ -27,7 +27,6 @@
 /* global fix: hilangkan tap highlight segi empat di semua elemen interaktif */
 button,a,[role="button"]{
   -webkit-tap-highlight-color:transparent;
-  touch-action:manipulation;
 }
 :root{
   --bg:#03050d;
@@ -833,32 +832,32 @@ footer::before{
   .logo-name{font-size:1.15rem;}
   .hero{padding:28px 4% 36px;}
   .hero h2{font-size:1.9rem;}
-  .stats{gap:16px;flex-wrap:wrap;justify-content:center;}
+  .stats{gap:20px;}
   .stat-num{font-size:1.25rem;}
   .products,.tabs-wrap{padding-left:4%;padding-right:4%;}
-  .product-grid{gap:10px;grid-template-columns:repeat(2,1fr);}
-  .product-image{height:110px;}
-  .card{padding:10px;border-radius:12px;}
-  .card h4{font-size:.78rem;min-height:2.2em;}
-  .card>p{font-size:11px;}
-  .buy-btn{font-size:11px;padding:10px 8px;min-height:44px;}
-  .modal-sheet{border-radius:22px 22px 0 0;padding-bottom:env(safe-area-inset-bottom,0);}
+  .product-grid{gap:8px;grid-template-columns:repeat(3,1fr);}
+  .product-image{height:86px;}
+  .card{padding:8px;border-radius:12px;}
+  .card h4{font-size:.7rem;min-height:2.4em;}
+  .card>p{font-size:10.5px;}
+  .buy-btn{font-size:10px;padding:7px 6px;}
+  .modal-sheet{border-radius:22px 22px 0 0;}
   .modal-header{padding:14px 16px 13px;gap:12px;}
   .modal-header-icon{width:42px;height:42px;font-size:1.2rem;border-radius:12px;}
   .modal-product-name{font-size:.85rem;}
   .modal-scroll{padding:16px 16px 0;}
-  .modal-footer{padding:12px 14px env(safe-area-inset-bottom, 24px);}
+  .modal-footer{padding:14px 16px 24px;}
   .price-grid{grid-template-columns:repeat(2,1fr);gap:7px;}
   .price-opt{padding:12px 11px;}
   .price-opt-amount{font-size:.78rem;}
-  .tab-btn{padding:10px 12px;font-size:.76rem;letter-spacing:.2px;min-height:44px;}
+  .tab-btn{padding:10px 14px;font-size:.76rem;letter-spacing:.2px;}
   .tab-btn .tab-icon{font-size:.82rem;}
   .tab-count{display:none;}
   .tab-header{margin-bottom:16px;}
   .tab-header-title{font-size:.92rem;}
   .tab-header-icon{width:36px;height:36px;font-size:1rem;}
   .platform-label{font-size:8px;padding:2px 6px;}
-  .status-pill{padding:5px 10px;font-size:10px;letter-spacing:1px;}
+  .status-pill{padding:6px 11px;font-size:10px;}
 }
 
 /* ── REDUCED MOTION ── */
@@ -1146,29 +1145,6 @@ footer::before{
 .dl-disclaimer{
   font-size:10px;color:rgba(255,255,255,.25);
   text-align:center;line-height:1.5;letter-spacing:.2px;
-}
-
-/* ── MOBILE PERF EXTRAS ── */
-@media(max-width:640px){
-  /* Disable backdrop-filter pada card di mobile (hemat GPU) */
-  .tabs{backdrop-filter:none;-webkit-backdrop-filter:none;}
-  /* Reduce grid-overlay complexity */
-  body::before{background-size:64px 64px;}
-  /* Social button lebih besar agar mudah diklik */
-  .social-btn{width:48px;height:48px;}
-  /* Banner margin lebih kecil */
-  .banner-slider{margin-top:12px;}
-  /* Hapus animasi stat counter pada mobile untuk FPS lebih smooth */
-  .stat-num{transition:none;}
-  /* Product grid gap konsisten */
-  .products{padding-left:3%;padding-right:3%;}
-  .tabs-wrap{margin:0 3% 28px;}
-  /* Toast di atas safe area */
-  .toast{bottom:calc(16px + env(safe-area-inset-bottom,0px));}
-  /* Dl & modal footer safe area */
-  .dl-footer{padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));}
-  /* Tab header lebih compact */
-  .tab-header{margin-bottom:12px;padding-bottom:12px;}
 }
 </style>
 </head>
