@@ -2,11 +2,20 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#03050d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Tarz Store — Premium Digital Shop</title>
+<meta name="description" content="Tarz Store — Premium digital shop terlengkap. Produk berkualitas, harga terjangkau, proses cepat.">
+<meta name="robots" content="index,follow">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<!-- Non-blocking font load — font-display:swap otomatis dari Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"></noscript>
 <style>
 /* ── RESET & ROOT ── */
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -29,11 +38,11 @@ button,a,[role="button"]{
   --border:rgba(255,255,255,.06);
   --t-fast:.18s;
   --t-mid:.28s;
-  --t-slow:.42s;
+  --t-slow:.35s;
   --ease:cubic-bezier(.4,0,.2,1);
 }
 
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;overscroll-behavior-y:none;}
 
 body{
   background:var(--bg);
@@ -41,12 +50,12 @@ body{
   font-family:'Space Grotesk',sans-serif;
   overflow-x:hidden;
   min-height:100vh;
+  touch-action:pan-y;
   /* CSS-only ambient — zero JS, zero repaint */
   background-image:
-    radial-gradient(ellipse 70% 50% at 20% 20%,rgba(29,110,245,.07) 0%,transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 70%,rgba(0,212,255,.05) 0%,transparent 55%),
-    radial-gradient(ellipse 50% 60% at 50% 100%,rgba(29,110,245,.04) 0%,transparent 50%);
-  background-attachment:fixed;
+    radial-gradient(ellipse 70% 50% at 20% 20%,rgba(29,110,245,.06) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 70%,rgba(0,212,255,.04) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 60% at 50% 100%,rgba(29,110,245,.03) 0%,transparent 50%);
 }
 
 /* ── GRID OVERLAY ── */
@@ -54,11 +63,13 @@ body::before{
   content:'';
   position:fixed;inset:0;z-index:0;
   background-image:
-    linear-gradient(rgba(29,110,245,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(29,110,245,.035) 1px,transparent 1px);
+    linear-gradient(rgba(29,110,245,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(29,110,245,.03) 1px,transparent 1px);
   background-size:48px 48px;
   mask-image:radial-gradient(ellipse 90% 90% at 50% 40%,black 20%,transparent 100%);
   pointer-events:none;
+  transform:translateZ(0);
+  will-change:transform;
 }
 
 /* ── WRAPPER ── */
@@ -73,8 +84,8 @@ header{
   align-items:center;
   position:sticky;top:0;z-index:100;
   background:rgba(3,5,13,.8);
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
   border-bottom:1px solid var(--border);
   transform:translateZ(0);
   animation:slideDown .5s var(--ease) both;
@@ -106,7 +117,7 @@ header::after{
   background:rgba(29,110,245,.08);
   display:flex;align-items:center;justify-content:center;
   /* opacity-only pulse — no box-shadow repaint */
-  animation:logo-pulse 3s ease-in-out infinite;
+  animation:logo-pulse 4s ease-in-out infinite;
 }
 @keyframes logo-pulse{
   0%,100%{opacity:.85;}
@@ -152,9 +163,9 @@ header::after{
 }
 .banner-slider-track{
   display:flex;
-  transition:transform .6s cubic-bezier(.4,0,.2,1);
-  will-change:transform;
+  transition:transform .5s cubic-bezier(.4,0,.2,1);
   touch-action:pan-y;
+  transform:translateZ(0);
 }
 .banner-slide{
   min-width:100%;
@@ -167,6 +178,7 @@ header::after{
   object-fit:cover;
   display:block;
   max-height:480px;
+  transform:translateZ(0);
 }
 /* dots — indicator only, no click */
 .banner-dots{
@@ -229,7 +241,7 @@ header::after{
   border-radius:18px;padding:5px;gap:0;
   position:relative;flex-shrink:0;
   box-shadow:0 4px 24px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.04);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
 }
 
 /* Sliding indicator — left/width only, GPU-composited */
@@ -334,8 +346,6 @@ header::after{
              border-color var(--t-mid) var(--ease);
   position:relative;overflow:hidden;
   opacity:0;transform:translate3d(0,18px,0);
-  will-change:transform,opacity;
-  contain:layout style;
 }
 
 /* Glow highlight — separate layer, opacity transition only */
@@ -358,6 +368,10 @@ header::after{
 .card:hover{
   transform:translate3d(0,-5px,0);
   border-color:rgba(29,110,245,.4);
+}
+@media(hover:none){
+  .card:hover{transform:none;border-color:var(--border);}
+  .card:hover::before{opacity:0;}
 }
 
 /* PLATFORM LABEL */
@@ -422,10 +436,9 @@ header::after{
 .product-image img{
   width:100%;height:100%;object-fit:cover;
   /* transform only — GPU composited */
-  transition:transform .45s var(--ease),opacity .3s;
+  transition:transform .4s var(--ease),opacity .3s;
   transform:translate3d(0,0,0) scale(1);
   filter:brightness(.9) saturate(1.05);
-  will-change:transform;
 }
 .product-image img.img-error{display:none;}
 .card:hover .product-image img{transform:translate3d(0,0,0) scale(1.05);}
@@ -446,7 +459,7 @@ header::after{
 .modal-overlay{
   position:fixed;inset:0;z-index:9000;
   background:rgba(2,4,11,.88);
-  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   display:flex;align-items:flex-end;justify-content:center;
   opacity:0;pointer-events:none;
   transition:opacity .3s var(--ease);
@@ -550,6 +563,8 @@ header::after{
 .modal-scroll{
   overflow-y:auto;flex:1;
   padding:20px 20px 0;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
   /* thin scrollbar */
   scrollbar-width:thin;scrollbar-color:rgba(29,110,245,.3) transparent;
 }
@@ -838,13 +853,60 @@ footer::before{
   *{animation-duration:.001ms!important;transition-duration:.001ms!important;animation-iteration-count:1!important;}
 }
 
+/* ── FOCUS VISIBLE — aksesibilitas keyboard ── */
+:focus{outline:none;}
+:focus-visible{
+  outline:2px solid var(--cyan);
+  outline-offset:3px;
+  border-radius:4px;
+}
+.tab-btn:focus-visible,
+.buy-btn:focus-visible,
+.modal-close:focus-visible,
+.dl-close:focus-visible,
+.modal-cta:focus-visible,
+.banner-dot:focus-visible,
+.social-btn:focus-visible,
+.dl-action-btn:focus-visible{
+  outline:2px solid var(--cyan);
+  outline-offset:2px;
+}
+
+/* ── SKIP TO CONTENT — aksesibilitas ── */
+.skip-link{
+  position:absolute;top:-100%;left:6px;
+  background:var(--blue);color:#fff;
+  padding:8px 16px;border-radius:0 0 8px 8px;
+  font-size:14px;font-weight:700;z-index:9999;
+  text-decoration:none;transition:top .2s;
+}
+.skip-link:focus{top:0;}
+
+/* ── DESKTOP ENHANCEMENTS (≥1024px) ── */
+@media(min-width:1024px){
+  .banner-slider{max-width:1100px;}
+  .products{padding:0 8% 80px;}
+  .tabs-wrap{margin:0 8% 36px;}
+  .product-grid{grid-template-columns:repeat(4,1fr);gap:16px;}
+  .product-image{height:130px;}
+  .card h4{font-size:.88rem;}
+  header{padding:16px 8%;}
+  .stats{gap:48px;}
+}
+
+/* ── WIDE DESKTOP (≥1400px) ── */
+@media(min-width:1400px){
+  .product-grid{grid-template-columns:repeat(5,1fr);}
+  .banner-slide img{max-height:560px;}
+}
+
 /* ══════════════════════════════════════
    DOWNLOAD MODAL — AINCRAD CLIENT
 ══════════════════════════════════════ */
 .dl-overlay{
   position:fixed;inset:0;z-index:9100;
   background:rgba(2,4,11,.92);
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   display:flex;align-items:flex-end;justify-content:center;
   opacity:0;pointer-events:none;
   transition:opacity .3s var(--ease);
@@ -862,7 +924,7 @@ footer::before{
   transition:transform .46s cubic-bezier(.22,1,.36,1);
   will-change:transform;
   position:relative;overflow:hidden;
-  box-shadow:0 -20px 80px rgba(0,0,0,.8),0 -4px 24px rgba(29,110,245,.12);
+  box-shadow:0 -8px 40px rgba(0,0,0,.6),0 -2px 12px rgba(29,110,245,.1);
   max-height:94vh;
   display:flex;flex-direction:column;
 }
@@ -954,6 +1016,8 @@ footer::before{
 /* ── SCROLL BODY ── */
 .dl-scroll{
   overflow-y:auto;flex:1;padding:16px 20px 0;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
   scrollbar-width:thin;scrollbar-color:rgba(29,110,245,.3) transparent;
 }
 .dl-scroll::-webkit-scrollbar{width:3px;}
@@ -1073,77 +1137,80 @@ footer::before{
 </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Lewati ke konten utama</a>
 <div class="wrapper">
 
 <!-- HEADER -->
-<header>
+<header role="banner">
   <div class="logo">
     <div class="logo-icon">
-      <img src="tarz.jpg" alt="Tarz" onerror="this.classList.add('img-error')">
+      <img src="tarz.jpg" alt="Tarz Store Logo" width="44" height="44" loading="eager" decoding="async" onerror="this.classList.add('img-error')">
     </div>
     <div>
-      <div class="logo-name">TARZ STORE</div>
+      <div class="logo-name" aria-label="Tarz Store">TARZ STORE</div>
       <div class="logo-sub">Premium Shop</div>
     </div>
   </div>
-  <div class="status-pill">
-    <div class="dot"></div>
-    ONLINE
+  <div class="status-pill" role="status" aria-live="polite">
+    <div class="dot" aria-hidden="true"></div>
+    <span>ONLINE</span>
   </div>
 </header>
 
 <!-- BANNER SLIDESHOW -->
-<section class="hero">
-  <div class="banner-slider" id="bannerSlider">
-    <div class="banner-slider-track" id="bannerTrack">
-      <div class="banner-slide">
-        <img src="Thamnel1.jpg" alt="Banner 1" onerror="this.style.minHeight='200px';this.style.background='#111'">
+<section class="hero" aria-label="Banner promosi">
+  <div class="banner-slider" id="bannerSlider" role="region" aria-label="Slideshow banner" aria-roledescription="carousel">
+    <div class="banner-slider-track" id="bannerTrack" aria-live="off">
+      <div class="banner-slide" role="group" aria-roledescription="slide" aria-label="Slide 1 dari 3">
+        <img src="Thamnel1.jpg" alt="Banner promosi Tarz Store" width="1280" height="480" loading="eager" fetchpriority="high" decoding="async" onerror="this.style.minHeight='200px';this.style.background='#111'">
       </div>
-      <div class="banner-slide">
-        <img src="Thamnel2.jpg" alt="Banner 2" onerror="this.style.minHeight='200px';this.style.background='#111'">
+      <div class="banner-slide" role="group" aria-roledescription="slide" aria-label="Slide 2 dari 3">
+        <img src="Thamnel2.jpg" alt="Banner promosi 2" width="1280" height="480" loading="lazy" decoding="async" onerror="this.style.minHeight='200px';this.style.background='#111'">
       </div>
-      <div class="banner-slide">
-        <img src="Thamnel3.jpg" alt="Banner 3" onerror="this.style.minHeight='200px';this.style.background='#111'">
+      <div class="banner-slide" role="group" aria-roledescription="slide" aria-label="Slide 3 dari 3">
+        <img src="Thamnel3.jpg" alt="Banner promosi 3" width="1280" height="480" loading="lazy" decoding="async" onerror="this.style.minHeight='200px';this.style.background='#111'">
       </div>
     </div>
     <!-- Dots -->
-    <div class="banner-dots" id="bannerDots">
-      <button class="banner-dot active" data-idx="0"></button>
-      <button class="banner-dot" data-idx="1"></button>
-      <button class="banner-dot" data-idx="2"></button>
+    <div class="banner-dots" id="bannerDots" role="tablist" aria-label="Kontrol slideshow">
+      <button class="banner-dot active" data-idx="0" role="tab" aria-selected="true" aria-label="Slide 1"></button>
+      <button class="banner-dot" data-idx="1" role="tab" aria-selected="false" aria-label="Slide 2"></button>
+      <button class="banner-dot" data-idx="2" role="tab" aria-selected="false" aria-label="Slide 3"></button>
     </div>
   </div>
 </section>
 
+
+
 <!-- TABS -->
-<div class="tabs-wrap">
-  <div class="tabs" id="tabsContainer">
-    <div class="tab-indicator" id="tabIndicator"></div>
-    <button class="tab-btn active" data-tab="cheat">
-      <span>CHEAT</span><span class="tab-count">7</span>
+<div class="tabs-wrap" role="navigation" aria-label="Kategori produk">
+  <div class="tabs" id="tabsContainer" role="tablist">
+    <div class="tab-indicator" id="tabIndicator" aria-hidden="true"></div>
+    <button class="tab-btn active" data-tab="cheat" role="tab" aria-selected="true" aria-controls="cheat">
+      <span>CHEAT</span><span class="tab-count" aria-label="9 produk">9</span>
     </button>
-    <button class="tab-btn" data-tab="cheatfree">
-      <span>CHEAT FREE</span><span class="tab-count">1</span>
+    <button class="tab-btn" data-tab="cheatfree" role="tab" aria-selected="false" aria-controls="cheatfree">
+      <span>CHEAT FREE</span><span class="tab-count" aria-label="1 produk">1</span>
     </button>
-    <button class="tab-btn" data-tab="joki">
-      <span>JOKI</span><span class="tab-count">3</span>
+    <button class="tab-btn" data-tab="joki" role="tab" aria-selected="false" aria-controls="joki">
+      <span>JOKI</span><span class="tab-count" aria-label="6 produk">6</span>
     </button>
-    <button class="tab-btn" data-tab="jasaedit">
-      <span>JASA EDIT</span><span class="tab-count">2</span>
+    <button class="tab-btn" data-tab="jasaedit" role="tab" aria-selected="false" aria-controls="jasaedit">
+      <span>JASA EDIT</span><span class="tab-count" aria-label="2 produk">2</span>
     </button>
   </div>
 </div>
 
 <!-- PRODUCTS -->
-<section class="products">
+<section class="products" id="main-content" aria-label="Daftar produk">
 
   <!-- CHEAT TAB -->
-  <div class="tab-content active" id="cheat">
+  <div class="tab-content active" id="cheat" role="tabpanel" aria-labelledby="tab-cheat">
     <div class="tab-header">
       <div class="tab-header-left">
         <div class="tab-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 14 14"><g fill="none"><path fill="#fff" d="M5 13.5L6 11h2l1 2.5z"/><path fill="#d7e0ff" d="M13 2H1a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h12a.5.5 0 0 0 .5-.5v-8A.5.5 0 0 0 13 2"/><path stroke="#4147d5" stroke-linecap="round" stroke-linejoin="round" d="M13 2H1a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h12a.5.5 0 0 0 .5-.5v-8A.5.5 0 0 0 13 2m-7 9l-1 2.5M8 11l1 2.5m-5 0h6"/><path stroke="#4147d5" stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25l-1.75 1.5L4.25 8m5.5-2.5l1.5 1.25l-1.75 1.5m-3.25.5l1.5-4.5"/></g></svg></div>
         <div>
-          <h3 class="tab-header-title">Cheat</h3>
+          <h3 class="tab-header-title">Cheat VIP</h3>
           <p class="tab-header-desc">Koleksi cheat premium terlengkap &amp; terupdate</p>
         </div>
       </div>
@@ -1151,12 +1218,12 @@ footer::before{
     <div class="product-grid">
       <div class="card"
         data-img="drip.jpg" data-label="DRIP"
-        data-icon="💧" data-platform="android" data-status="close"
+        data-icon="💧" data-platform="android" data-status="open"
         data-desc="Cheat mobile tanpa root. Fitur lengkap, aman digunakan, tidak mudah kena banned. Cocok untuk pemula."
         data-packages='[{"name":"1 Hari","price":"Rp 17.000"},{"name":"3 Hari","price":"Rp 32.000"},{"name":"7 Hari","price":"Rp 62.000"},{"name":"30 Hari","price":"Rp 150.000"}]'>
         <div class="product-image" data-label="DRIP">
-          <span class="platform-label android">CLOSE</span>
-          <img src="drip.jpg" alt="Drip Client" onerror="this.classList.add('img-error')">
+          <span class="platform-label android">NO ROOT</span>
+          <img src="drip.jpg" alt="Drip Client" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>DRIP CLIENT</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 6.2K+</div>
@@ -1170,7 +1237,7 @@ footer::before{
         data-packages='[{"name":"1 Hari","price":"Rp 15.000"},{"name":"7 Hari","price":"Rp 45.000"},{"name":"30 Hari","price":"Rp 150.000"}]'>
         <div class="product-image" data-label="BR MODS">
           <span class="platform-label pc">ROOT</span>
-          <img src="br.jpg" alt="BR Mods" onerror="this.classList.add('img-error')">
+          <img src="br.jpg" alt="BR Mods" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>BR MODS</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 430+</div>
@@ -1184,7 +1251,7 @@ footer::before{
         data-packages='[{"name":"1 Hari","price":"Rp 50.000"},{"name":"7 Hari","price":"Rp 150.000"},{"name":"30 Hari","price":"Rp 350.000"}]'>
         <div class="product-image" data-label="FLO">
           <span class="platform-label ios">IOS</span>
-          <img src="flo.jpg" alt="Fluorite" onerror="this.classList.add('img-error')">
+          <img src="flo.jpg" alt="Fluorite" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>FLUORITE</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 640+</div>
@@ -1198,7 +1265,7 @@ footer::before{
         data-packages='[{"name":"1 Hari","price":"Rp 20.000"},{"name":"7 Hari","price":"Rp 70.000"},{"name":"30 Hari","price":"Rp 160.000"}]'>
         <div class="product-image" data-label="DRIP">
           <span class="platform-label pc">ROOT</span>
-          <img src="drip.jpg" alt="Drip Client Root" onerror="this.classList.add('img-error')">
+          <img src="drip.jpg" alt="Drip Client Root" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>DRIP ROOT</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 1.4K+</div>
@@ -1212,7 +1279,7 @@ footer::before{
         data-packages='[{"name":"1 Hari","price":"Rp 17.000"},{"name":"7 Hari","price":"Rp 40.000"},{"name":"10 Hari","price":"Rp 60.000"}]'>
         <div class="product-image" data-label="HG">
           <span class="platform-label pc">CLOSE</span>
-          <img src="hg.jpg" alt="Hg Cheat" onerror="this.classList.add('img-error')">
+          <img src="hg.jpg" alt="Hg Cheat" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>HG CHEAT</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 510+</div>
@@ -1226,7 +1293,7 @@ footer::before{
         data-packages='[{"name":"1 Hari","price":"Rp 15.000"},{"name":"3 Hari","price":"Rp 25.000"},{"name":"7 Hari","price":"Rp 50.000"}]'>
         <div class="product-image" data-label="HOOK">
           <span class="platform-label ios">CLOSE</span>
-          <img src="pr.jpg" alt="Prime Hook" onerror="this.classList.add('img-error')">
+          <img src="pr.jpg" alt="Prime Hook" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>PRIME HOOK</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 430+</div>
@@ -1240,7 +1307,7 @@ footer::before{
         data-packages='[{"name":"3 Hari","price":"Rp 30.000"},{"name":"7 Hari","price":"Rp 70.000"},{"name":"30 Hari","price":"Rp 180.000"}]'>
         <div class="product-image" data-label="PATO">
           <span class="platform-label android">CLOSE</span>
-          <img src="pt.jpg" alt="Pato Team" onerror="this.classList.add('img-error')">
+          <img src="pt.jpg" alt="Pato Team" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>PATO TEAM</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 489+</div>
@@ -1256,7 +1323,7 @@ footer::before{
         data-packages='[{"name":"1 Hari","price":"Rp 50.000"},{"name":"7 Hari","price":"Rp 150.000"},{"name":"30 Hari","price":"Rp 350.000"}]'>
         <div class="product-image" data-label="FLO">
           <span class="platform-label ios">CLOSE</span>
-          <img src="migul.jpg" alt="Fluorite" onerror="this.classList.add('img-error')">
+          <img src="migul.jpg" alt="Fluorite" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>FLUORITE</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 356+</div>
@@ -1272,7 +1339,7 @@ footer::before{
         data-packages='[{"name":"1 Hari","price":"Rp 50.000"},{"name":"7 Hari","price":"Rp 150.000"},{"name":"30 Hari","price":"Rp 350.000"}]'>
         <div class="product-image" data-label="FLO">
           <span class="platform-label android">CLOSE</span>
-          <img src="ez.jpg" alt="HG" onerror="this.classList.add('img-error')">
+          <img src="ez.jpg" alt="HG" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>8 BALL POOL</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 175+</div>
@@ -1283,10 +1350,10 @@ footer::before{
   </div>
 
   <!-- CHEAT FREE TAB -->
-  <div class="tab-content" id="cheatfree">
+  <div class="tab-content" id="cheatfree" role="tabpanel" aria-labelledby="tab-cheatfree">
     <div class="tab-header">
       <div class="tab-header-left">
-        <div class="tab-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 14 14"><g fill="none"><path fill="#d7e0ff" d="M7 1L1 4v3c0 3.31 2.57 6.41 6 7.16C10.43 13.41 13 10.31 13 7V4z"/><path stroke="#4147d5" stroke-linecap="round" stroke-linejoin="round" d="M7 1L1 4v3c0 3.31 2.57 6.41 6 7.16C10.43 13.41 13 10.31 13 7V4zM4.5 7l2 2 3-3"/></g></svg></div>
+        <div class="tab-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 14 14"><g fill="none"><path fill="#fff" d="M5 13.5L6 11h2l1 2.5z"/><path fill="#d7e0ff" d="M13 2H1a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h12a.5.5 0 0 0 .5-.5v-8A.5.5 0 0 0 13 2"/><path stroke="#4147d5" stroke-linecap="round" stroke-linejoin="round" d="M13 2H1a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h12a.5.5 0 0 0 .5-.5v-8A.5.5 0 0 0 13 2m-7 9l-1 2.5M8 11l1 2.5m-5 0h6"/><path stroke="#4147d5" stroke-linecap="round" stroke-linejoin="round" d="m4.5 5.25l-1.75 1.5L4.25 8m5.5-2.5l1.5 1.25l-1.75 1.5m-3.25.5l1.5-4.5"/></g></svg></div>
         <div>
           <h3 class="tab-header-title">Cheat Free</h3>
           <p class="tab-header-desc">Cheat gratis, download langsung tanpa biaya</p>
@@ -1303,10 +1370,10 @@ footer::before{
         data-packages='[{"name":"FREE","price":"Rp 0"}]'>
         <div class="product-image" data-label="AIN">
           <span class="platform-label android">FREE</span>
-          <img src="ain.jpg" alt="Aincrad Client" onerror="this.classList.add('img-error')">
+          <img src="ain.jpg" alt="Aincrad Client" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
-        <h4>AINCRAD CLIENT</h4>
-        <div class="card-sold"><ion-icon name="download-outline" style="font-size:13px;color:#0284c7;flex-shrink:0;vertical-align:middle;"></ion-icon> TERINSTAL 1.0K</div>
+        <h4>AINCRAD MODS</h4>
+        <div class="card-sold"><ion-icon name="download-outline" style="font-size:13px;color:#0284c7;flex-shrink:0;vertical-align:middle;"></ion-icon> TERINSTAL 7.5K</div>
         <button class="buy-btn" onclick="openDlModal()" style="display:flex;align-items:center;justify-content:center;gap:6px;background:linear-gradient(135deg,#1a5fd4,#1d6ef5);border-color:rgba(77,148,255,.35);"><ion-icon name="download-outline" style="font-size:14px;flex-shrink:0;"></ion-icon>Download</button>
       </div>
 
@@ -1314,7 +1381,7 @@ footer::before{
   </div>
 
   <!-- JOKI TAB -->
-  <div class="tab-content" id="joki">
+  <div class="tab-content" id="joki" role="tabpanel" aria-labelledby="tab-joki">
     <div class="tab-header">
       <div class="tab-header-left">
         <div class="tab-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 14 14"><g fill="none"><path fill="#d7e0ff" d="M1.243 7.167L.83 10.892a2.288 2.288 0 0 0 4.322 1.276l.36-.72H8.49l.36.72a2.288 2.288 0 0 0 4.322-1.276l-.414-3.725a3 3 0 0 0-2.982-2.67h-5.55a3 3 0 0 0-2.982 2.67"/><path stroke="#4147d5" stroke-linecap="round" stroke-linejoin="round" d="M4.4 6.995v2.311m1.156-1.155H3.245m1.91-3.631h-.917a3 3 0 0 0-2.982 2.668l-.412 3.71a2.283 2.283 0 0 0 4.311 1.273l.36-.719h2.97l.36.719a2.283 2.283 0 0 0 4.31-1.273l-.411-3.71"/><path stroke="#4147d5" stroke-linecap="round" stroke-linejoin="round" d="M8.733 8.729a.248.248 0 1 1 .495 0m-.495 0a.248.248 0 0 0 .495 0"/><path fill="#fff" d="M7.369 4.001c-.35-.061-.35-.565 0-.626A3.18 3.18 0 0 0 9.928.925l.02-.097c.077-.347.57-.349.65-.003l.025.113a3.19 3.19 0 0 0 2.566 2.435c.352.062.352.568 0 .63a3.19 3.19 0 0 0-2.566 2.435l-.026.113c-.079.346-.572.344-.648-.003l-.021-.097a3.18 3.18 0 0 0-2.559-2.45"/><path stroke="#4147d5" stroke-linecap="round" stroke-linejoin="round" d="M7.369 4.001c-.35-.061-.35-.565 0-.626A3.18 3.18 0 0 0 9.928.925l.02-.097c.077-.347.57-.349.65-.003l.025.113a3.19 3.19 0 0 0 2.566 2.435c.352.062.352.568 0 .63a3.19 3.19 0 0 0-2.566 2.435l-.026.113c-.079.346-.572.344-.648-.003l-.021-.097a3.18 3.18 0 0 0-2.559-2.45"/></g></svg></div>
@@ -1340,7 +1407,7 @@ footer::before{
 
         <div class="product-image" data-label="CSR">
           <span class="platform-label ios">OPEN</span>
-          <img src="csr.jpg" alt="Joki Gendong CSR" onerror="this.classList.add('img-error')">
+          <img src="csr.jpg" alt="Joki Gendong CSR" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>JOKI GENDONG CSR</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 670+</div>
@@ -1354,7 +1421,7 @@ footer::before{
         data-packages='[{"name":"1 bintang ⭐","price":"Rp 5.000"}]'>
         <div class="product-image" data-label="CSR">
           <span class="platform-label ios">CLOSE</span>
-          <img src="ml.jpg" alt="Joki Gendong ML" onerror="this.classList.add('img-error')">
+          <img src="ml.jpg" alt="Joki Gendong ML" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>JOKI ML</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 280+</div>
@@ -1368,7 +1435,7 @@ footer::before{
         data-packages='[{"name":"1 Game","price":"Rp 2.000"}]'>
         <div class="product-image" data-label="BR RANK">
           <span class="platform-label pc">CLOSE</span>
-          <img src="rank.jpg" alt="Push Rank" onerror="this.classList.add('img-error')">
+          <img src="rank.jpg" alt="Push Rank" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>JOKI GENDONG BR</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 350+</div>
@@ -1384,7 +1451,7 @@ footer::before{
         data-packages='[{"name":"1 bintang ⭐","price":"Rp 5.000"}]'>
         <div class="product-image" data-label="CSR">
           <span class="platform-label ios">CLOSE</span>
-          <img src="hok.jpg" alt="Joki Gendong ML" onerror="this.classList.add('img-error')">
+          <img src="hok.jpg" alt="Joki Gendong ML" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>JOKI RANK HOK</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 23+</div>
@@ -1401,7 +1468,7 @@ footer::before{
         data-packages='[{"name":"1 bintang ⭐","price":"Rp 5.000"}]'>
         <div class="product-image" data-label="CSR">
           <span class="platform-label ios">CLOSE</span>
-          <img src="bs.jpg" alt="Joki Gendong ML" onerror="this.classList.add('img-error')">
+          <img src="bs.jpg" alt="Joki Gendong ML" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>JOKI RANK BS</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 20+</div>
@@ -1418,7 +1485,7 @@ footer::before{
         data-packages='[{"name":"1 bintang ⭐","price":"Rp 5.000"}]'>
         <div class="product-image" data-label="CSR">
           <span class="platform-label ios">CLOSE</span>
-          <img src="pubg.jpg" alt="Joki Gendong ML" onerror="this.classList.add('img-error')">
+          <img src="pubg.jpg" alt="Joki Gendong ML" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>JOKI RANK PUBG</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 142+</div>
@@ -1430,7 +1497,7 @@ footer::before{
   </div>
 
   <!-- JASA EDIT TAB -->
-  <div class="tab-content" id="jasaedit">
+  <div class="tab-content" id="jasaedit" role="tabpanel" aria-labelledby="tab-jasaedit">
     <div class="tab-header">
       <div class="tab-header-left">
         <div class="tab-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 14 14"><g fill="none"><path fill="#d7e0ff" d="M10.576 9.629a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1z"/><path fill="#fff" d="M6.326 5.629a1.25 1.25 0 1 0 0-2.5a1.25 1.25 0 0 0 0 2.5m1.416 5H1.576a1 1 0 0 1-1-1V6.733a6.5 6.5 0 0 1 7.166 3.896"/><path stroke="#4147d5" stroke-linecap="round" stroke-linejoin="round" d="M.576 6.733a6.5 6.5 0 0 1 1.164-.104c1.58 0 3.027.563 4.154 1.5"/><path stroke="#4147d5" stroke-linecap="round" stroke-linejoin="round" d="M5.076 10.629h-3.5a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3.5"/><path stroke="#4147d5" stroke-linecap="round" stroke-linejoin="round" d="M6.326 5.629a1.25 1.25 0 1 0 0-2.5a1.25 1.25 0 0 0 0 2.5"/><path fill="#fff" d="M7.34 10.563c-.351-.061-.351-.565 0-.626a3.18 3.18 0 0 0 2.558-2.45l.021-.097c.076-.347.57-.349.649-.003l.026.113a3.19 3.19 0 0 0 2.565 2.436c.353.06.353.567 0 .629A3.19 3.19 0 0 0 10.594 13l-.026.113c-.079.346-.573.344-.649-.003l-.021-.097a3.18 3.18 0 0 0-2.558-2.45"/><path stroke="#4147d5" stroke-linecap="round" stroke-linejoin="round" d="M7.34 10.563c-.351-.061-.351-.565 0-.626a3.18 3.18 0 0 0 2.558-2.45l.021-.097c.076-.347.57-.349.649-.003l.026.113a3.19 3.19 0 0 0 2.565 2.436c.353.06.353.567 0 .629A3.19 3.19 0 0 0 10.594 13l-.026.113c-.079.346-.573.344-.649-.003l-.021-.097a3.18 3.18 0 0 0-2.558-2.45"/></g></svg></div>
@@ -1448,7 +1515,7 @@ footer::before{
         data-packages='[{"name":"2 Foto","price":"Rp 1.000"},{"name":"5 Foto","price":"Rp 2.000"}]'>
         <div class="product-image" data-label="HD FOTO">
           <span class="platform-label pc">CLOSE</span>
-          <img src="jj.jpg" alt="HD Foto" onerror="this.classList.add('img-error')">
+          <img src="jj.jpg" alt="HD Foto" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>HD Foto</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 150+</div>
@@ -1463,7 +1530,7 @@ footer::before{
         data-packages='[{"name":"Basic","price":"Rp 2.000"},{"name":"Premium","price":"Rp 5.000"}]'>
         <div class="product-image" data-label="JASA JJ">
           <span class="platform-label pc">CLOSE</span>
-          <img src="jj.jpg" alt="Jasa JJ" onerror="this.classList.add('img-error')">
+          <img src="jj.jpg" alt="Jasa JJ" onerror="this.classList.add('img-error')" loading="lazy" decoding="async">
         </div>
         <h4>Jasa JJ</h4>
         <div class="card-sold"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24"><path fill="#0284c7" d="M19 20c0 1.11-.89 2-2 2a2 2 0 0 1-2-2c0-1.11.89-2 2-2a2 2 0 0 1 2 2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2s-.89-2-2-2m.2-3.37l-.03.12c0 .14.11.25.25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1V2h3.27l.94 2H20c.55 0 1 .45 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1zM8.5 11H10V9H7.56zM11 9v2h3V9zm3-1V6h-3v2zm3.11 1H15v2h1zm1.67-3H15v2h2.67zM6.14 6l.94 2H10V6z"/></svg> TERJUAL 120+</div>
@@ -1476,42 +1543,37 @@ footer::before{
 </section>
 
 <!-- SOCIAL MEDIA -->
-<section class="social-section">
+<section class="social-section" aria-label="Media sosial">
   <div class="social-title">Ikuti &amp; Hubungi Kami</div>
   <div class="social-links">
 
     <!-- WhatsApp -->
-    <a class="social-btn whatsapp" href="https://wa.me/6287765230759" target="_blank" rel="noopener" title="WhatsApp">
-      <span class="social-btn-icon"><ion-icon name="logo-whatsapp"></ion-icon></span>
+    <a class="social-btn whatsapp" href="https://wa.me/6287765230759" target="_blank" rel="noopener noreferrer" aria-label="Hubungi via WhatsApp (buka tab baru)">
+      <span class="social-btn-icon" aria-hidden="true"><ion-icon name="logo-whatsapp"></ion-icon></span>
     </a>
 
     <!-- TikTok -->
-    <a class="social-btn tiktok" href="https://www.tiktok.com/@tarz_026?_r=1&_t=ZS-96kdGp4iaIf" target="_blank" rel="noopener" title="TikTok">
-      <span class="social-btn-icon"><ion-icon name="logo-tiktok"></ion-icon></span>
+    <a class="social-btn tiktok" href="https://www.tiktok.com/@tarz_026?_r=1&_t=ZS-96kdGp4iaIf" target="_blank" rel="noopener noreferrer" aria-label="Ikuti di TikTok (buka tab baru)">
+      <span class="social-btn-icon" aria-hidden="true"><ion-icon name="logo-tiktok"></ion-icon></span>
     </a>
 
     <!-- Telegram -->
-    <a class="social-btn telegram" href="https://t.me/Tarz_026" target="_blank" rel="noopener" title="Telegram">
-      <span class="social-btn-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+    <a class="social-btn telegram" href="https://t.me/Tarz_026" target="_blank" rel="noopener noreferrer" aria-label="Bergabung di Telegram (buka tab baru)">
+      <span class="social-btn-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" aria-hidden="true">
           <path fill="currentColor" fill-rule="evenodd" d="M0.25 7a6.75 6.75 0 1 1 13.5 0A6.75 6.75 0 0 1 0.25 7Zm9.002 4.064 1.045 -7.932 -8.165 3.935 2.417 0.876 2.686 -2.076a0.5 0.5 0 1 1 0.611 0.792L5.618 8.38l0 2.726 1.685 -1.604 1.949 1.561Z" clip-rule="evenodd"/>
         </svg>
       </span>
     </a>
 
     <!-- Discord (belum ada) -->
-    <span class="social-btn discord" title="Segera hadir">
-      <span class="social-btn-icon"><ion-icon name="logo-discord"></ion-icon></span>
+    <span class="social-btn discord" aria-label="Discord — segera hadir" aria-disabled="true">
+      <span class="social-btn-icon" aria-hidden="true"><ion-icon name="logo-discord"></ion-icon></span>
     </span>
 
     <!-- YouTube (belum ada) -->
-    <span class="social-btn youtube" title="Segera hadir">
-      <span class="social-btn-icon"><ion-icon name="logo-youtube"></ion-icon></span>
-    </span>
-
-    <!-- GitHub (belum ada) -->
-    <span class="social-btn github" title="Segera hadir">
-      <span class="social-btn-icon"><ion-icon name="logo-github"></ion-icon></span>
+    <span class="social-btn youtube" aria-label="YouTube — segera hadir" aria-disabled="true">
+      <span class="social-btn-icon" aria-hidden="true"><ion-icon name="logo-youtube"></ion-icon></span>
     </span>
 
   </div>
@@ -1526,7 +1588,7 @@ footer::before{
 <div class="toast" id="toast"></div>
 
 <!-- DOWNLOAD MODAL — CHEAT FREE -->
-<div class="dl-overlay" id="dlOverlay" onclick="handleDlOverlayClick(event)">
+<div class="dl-overlay" id="dlOverlay" role="dialog" aria-modal="true" aria-labelledby="dlProductName" aria-hidden="true" onclick="handleDlOverlayClick(event)">
   <div class="dl-sheet" id="dlSheet">
 
     <div class="dl-handle"></div>
@@ -1538,7 +1600,7 @@ footer::before{
       </div>
       <div class="dl-header-info">
         <div class="dl-product-name">AINCRAD CLIENT</div>
-        <div class="dl-product-sub">v3.3 · Android · Requires ROOT</div>
+        <div class="dl-product-sub">v3.3  Requires ROOT</div>
         <div class="dl-free-badge">GRATIS / FREE</div>
       </div>
       <button class="dl-close" onclick="closeDlModal()" aria-label="Tutup">
@@ -1561,7 +1623,7 @@ footer::before{
       <div class="dl-section-label">Langkah Instalasi</div>
       <div class="dl-actions">
 
-        <!-- INSTALL APK -->
+        <!-- AincradClient -->
         <a class="dl-action-btn dl-btn-install"
            href="https://www.mediafire.com/file/buryn6c4xy61fjs/AincradClient+3.3.apk/file"
            target="_blank" rel="noopener">
@@ -1569,8 +1631,24 @@ footer::before{
             <ion-icon name="download-outline"></ion-icon>
           </div>
           <div class="dl-btn-text">
-            <div class="dl-btn-title">Instal APK</div>
-            <div class="dl-btn-subtitle">Download Aincrad Client v3.3 · MediaFire</div>
+            <div class="dl-btn-title">Aincrad Mods</div>
+            <div class="dl-btn-subtitle">Download Aincrad Mods v3.3 · MediaFire</div>
+          </div>
+          <div class="dl-btn-arrow">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </div>
+        </a>
+        
+                <!-- FREE FIRE -->
+        <a class="dl-action-btn dl-btn-install"
+           href="https://www.mediafire.com/file/kpv5ut9fff2t9vt/Free+Fire+MAX_2.124.1.apks/file"
+           target="_blank" rel="noopener">
+          <div class="dl-btn-icon-wrap">
+            <ion-icon name="download-outline"></ion-icon>
+          </div>
+          <div class="dl-btn-text">
+            <div class="dl-btn-title">Free Fire MAX</div>
+            <div class="dl-btn-subtitle">Download Apk Free Fire MAX India · MediaFire</div>
           </div>
           <div class="dl-btn-arrow">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 8h10M9 4l4 4-4 4"/></svg>
@@ -1626,7 +1704,7 @@ footer::before{
 </div>
 
 <!-- CHECKOUT MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalProductName" aria-hidden="true" onclick="handleOverlayClick(event)">
   <div class="modal-sheet" id="modalSheet">
 
     <div class="modal-handle"></div>
@@ -1679,13 +1757,15 @@ requestAnimationFrame(()=>{
   if(active) updateIndicator(active);
 });
 
-/* ── TABS ── */
-document.querySelectorAll('.tab-btn').forEach(btn=>{
+/* ── TABS — with ARIA & keyboard support ── */
+const tabBtns = document.querySelectorAll('.tab-btn');
+tabBtns.forEach((btn, idx)=>{
   btn.addEventListener('click', ()=>{
     if(btn.classList.contains('active')) return;
-    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    tabBtns.forEach(b=>{ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
     document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
     btn.classList.add('active');
+    btn.setAttribute('aria-selected','true');
     updateIndicator(btn);
     const target = document.getElementById(btn.dataset.tab);
     target.classList.add('active');
@@ -1697,6 +1777,16 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
         c.classList.add('visible');
       });
     });
+  });
+  /* keyboard: arrow kiri/kanan untuk navigasi antar tab */
+  btn.addEventListener('keydown', e=>{
+    if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+      e.preventDefault();
+      const dir = e.key==='ArrowRight' ? 1 : -1;
+      const next = tabBtns[(idx + dir + tabBtns.length) % tabBtns.length];
+      next.focus();
+      next.click();
+    }
   });
 });
 
@@ -1710,13 +1800,15 @@ window.addEventListener('resize', ()=>{
 const io = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(!e.isIntersecting) return;
-    const siblings = Array.from(e.target.parentElement.children);
-    e.target.style.animationDelay = (siblings.indexOf(e.target) * .06) + 's';
     e.target.classList.add('visible');
     io.unobserve(e.target);
   });
 }, {threshold:.04, rootMargin:'0px 0px -16px 0px'});
-document.querySelectorAll('.card').forEach(c=>io.observe(c));
+// Pre-calculate delay once at setup, not on each intersection
+document.querySelectorAll('.card').forEach((c,i)=>{
+  c.style.animationDelay = ((i % 6) * .06) + 's';
+  io.observe(c);
+});
 
 /* ── STAT COUNTER ── */
 function countUp(el){
@@ -1797,19 +1889,29 @@ function openModal(btn){
   packages.forEach((pkg, i) => {
     const el = document.createElement('div');
     el.className = 'price-opt' + (i === 0 ? ' selected' : '');
+    el.setAttribute('role','button');
+    el.setAttribute('tabindex','0');
+    el.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+    el.setAttribute('aria-label', pkg.name + ' — ' + pkg.price);
     el.innerHTML = `
-      <div class="price-opt-check">
+      <div class="price-opt-check" aria-hidden="true">
         <svg viewBox="0 0 12 10"><polyline points="1,5 4.5,8.5 11,1"/></svg>
       </div>
       <div class="price-opt-duration">${pkg.name}</div>
       <div class="price-opt-amount">${pkg.price}</div>
     `;
-    el.addEventListener('click', () => {
-      grid.querySelectorAll('.price-opt').forEach(o => o.classList.remove('selected'));
+    const selectPkg = () => {
+      grid.querySelectorAll('.price-opt').forEach(o => {
+        o.classList.remove('selected');
+        o.setAttribute('aria-pressed','false');
+      });
       el.classList.add('selected');
+      el.setAttribute('aria-pressed','true');
       _selectedPackage = pkg;
       updateSummary();
-    });
+    };
+    el.addEventListener('click', selectPkg);
+    el.addEventListener('keydown', e=>{ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); selectPkg(); } });
     grid.appendChild(el);
   });
 
@@ -1818,16 +1920,22 @@ function openModal(btn){
   const cta = document.getElementById('modalCta');
   if(_isClosed){
     cta.disabled = true;
+    cta.setAttribute('aria-disabled','true');
     cta.style.cssText = 'opacity:.35;cursor:not-allowed;pointer-events:none;background:rgba(60,60,80,.6);box-shadow:none;';
     cta.innerHTML = '🔒 Produk Sedang CLOSE';
   } else {
     cta.disabled = false;
+    cta.removeAttribute('aria-disabled');
     cta.style.cssText = '';
-    cta.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" width="16" height="16" style="flex-shrink:0"><path fill="currentColor" fill-rule="evenodd" d="M3.81083 9.61651 1.99354 1.25H0.626953C0.281775 1.25 0.00195312 0.970178 0.00195312 0.625S0.281775 3.9e-9 0.626953 3.9e-9H2.09195C2.60611 -0.0000435075 3.08292 0.364716 3.19308 0.8835l0.23108 1.06386h9.45264c0.6394 0.00228 1.2472 0.56798 1.104 1.31684l-0.8204 3.89672c-0.1431 0.67948 -0.7974 0.88635 -1.1068 0.90486H4.75314l0.25723 1.18423H11.002c0.3451 0 0.625 0.27982 0.625 0.625 0 0.34519 -0.2799 0.62499 -0.625 0.62499H4.91195c-0.51416 0 -0.99096 -0.3647 -1.10112 -0.88349Zm0.6708 -2.80073h7.47407l0.753 -3.61842H3.69567l0.78596 3.61842ZM10.502 11.75c0.6213 0 1.125 0.5037 1.125 1.125S11.1233 14 10.502 14c-0.62137 0 -1.12505 -0.5037 -1.12505 -1.125s0.50368 -1.125 1.12505 -1.125Zm-3.87505 1.125c0 -0.6213 -0.50368 -1.125 -1.125 -1.125s-1.125 0.5037 -1.125 1.125S4.88063 14 5.50195 14s1.125 -0.5037 1.125 -1.125Z" clip-rule="evenodd" stroke-width="1"></path></svg> Buy';
+    cta.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" width="16" height="16" aria-hidden="true" style="flex-shrink:0"><path fill="currentColor" fill-rule="evenodd" d="M3.81083 9.61651 1.99354 1.25H0.626953C0.281775 1.25 0.00195312 0.970178 0.00195312 0.625S0.281775 3.9e-9 0.626953 3.9e-9H2.09195C2.60611 -0.0000435075 3.08292 0.364716 3.19308 0.8835l0.23108 1.06386h9.45264c0.6394 0.00228 1.2472 0.56798 1.104 1.31684l-0.8204 3.89672c-0.1431 0.67948 -0.7974 0.88635 -1.1068 0.90486H4.75314l0.25723 1.18423H11.002c0.3451 0 0.625 0.27982 0.625 0.625 0 0.34519 -0.2799 0.62499 -0.625 0.62499H4.91195c-0.51416 0 -0.99096 -0.3647 -1.10112 -0.88349Zm0.6708 -2.80073h7.47407l0.753 -3.61842H3.69567l0.78596 3.61842ZM10.502 11.75c0.6213 0 1.125 0.5037 1.125 1.125S11.1233 14 10.502 14c-0.62137 0 -1.12505 -0.5037 -1.12505 -1.125s0.50368 -1.125 1.12505 -1.125Zm-3.87505 1.125c0 -0.6213 -0.50368 -1.125 -1.125 -1.125s-1.125 0.5037 -1.125 1.125S4.88063 14 5.50195 14s1.125 -0.5037 1.125 -1.125Z" clip-rule="evenodd" stroke-width="1"></path></svg> Beli Sekarang';
   }
 
-  document.getElementById('modalOverlay').classList.add('open');
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden','false');
   document.body.style.overflow = 'hidden';
+  /* focus trap — fokus ke tombol close */
+  setTimeout(()=>{ document.querySelector('.modal-close')?.focus(); }, 50);
 }
 
 function updateSummary(){
@@ -1836,7 +1944,9 @@ function updateSummary(){
 }
 
 function closeModal(){
-  document.getElementById('modalOverlay').classList.remove('open');
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden','true');
   document.body.style.overflow = '';
 }
 
@@ -1849,7 +1959,7 @@ function buyNow(){
   if(!_selectedPackage){ showToast('⚠️ Pilih paket terlebih dahulu!','error'); return; }
   showToast('✅ Mengalihkan ke WhatsApp...','success');
   const msg = `Halo Tarz Store! Saya mau order:\n\n*Produk:* ${_currentProduct}\n*Paket:* ${_selectedPackage.name} — ${_selectedPackage.price}\n\nMohon diproses ya, terima kasih 🙏`;
-  setTimeout(()=>{ closeModal(); window.open('https://wa.me/6287765230759?text='+encodeURIComponent(msg),'_blank'); }, 480);
+  setTimeout(()=>{ closeModal(); window.open('https://wa.me/6287765230759?text='+encodeURIComponent(msg),'_blank','noopener,noreferrer'); }, 480);
 }
 
 /* ── BANNER SLIDESHOW with touch/swipe support ── */
@@ -1863,7 +1973,14 @@ function buyNow(){
   function goTo(idx){
     current = ((idx % total) + total) % total;
     track.style.transform = 'translate3d(-' + (current * 100) + '%,0,0)';
-    dotsEl.forEach((d,i) => d.classList.toggle('active', i === current));
+    dotsEl.forEach((d,i) => {
+      d.classList.toggle('active', i === current);
+      d.setAttribute('aria-selected', i === current ? 'true' : 'false');
+    });
+    /* update slide visibility for screen readers */
+    track.querySelectorAll('.banner-slide').forEach((s,i)=>{
+      s.setAttribute('aria-hidden', i !== current ? 'true' : 'false');
+    });
   }
 
   function startAuto(){
@@ -1871,12 +1988,16 @@ function buyNow(){
     autoTimer = setInterval(() => goTo(current + 1), 5000);
   }
 
-  // Dot click
+  /* pause auto on tab focus */
+  track.addEventListener('focusin', ()=>clearInterval(autoTimer));
+  track.addEventListener('focusout', ()=>startAuto());
+
+  /* Dot click */
   dotsEl.forEach((dot, i) => {
     dot.addEventListener('click', () => { goTo(i); startAuto(); });
   });
 
-  // Touch swipe
+  /* Touch swipe */
   let tsX = 0, tsDiff = 0, isDragging = false;
   track.addEventListener('touchstart', e => {
     tsX = e.touches[0].clientX;
@@ -1897,6 +2018,8 @@ function buyNow(){
     startAuto();
   }, {passive:true});
 
+  /* init hidden state */
+  goTo(0);
   startAuto();
 })();
 
@@ -1906,12 +2029,18 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeModal(); cl
 /* ── DOWNLOAD MODAL ── */
 function openDlModal(){
   document.getElementById('modalOverlay').classList.remove('open');
-  document.getElementById('dlOverlay').classList.add('open');
+  document.getElementById('modalOverlay').setAttribute('aria-hidden','true');
+  const dlOverlay = document.getElementById('dlOverlay');
+  dlOverlay.classList.add('open');
+  dlOverlay.setAttribute('aria-hidden','false');
   document.body.style.overflow = 'hidden';
+  setTimeout(()=>{ document.querySelector('.dl-close')?.focus(); }, 50);
 }
 
 function closeDlModal(){
-  document.getElementById('dlOverlay').classList.remove('open');
+  const dlOverlay = document.getElementById('dlOverlay');
+  dlOverlay.classList.remove('open');
+  dlOverlay.setAttribute('aria-hidden','true');
   document.body.style.overflow = '';
 }
 
@@ -1919,7 +2048,18 @@ function handleDlOverlayClick(e){
   if(e.target === document.getElementById('dlOverlay')) closeDlModal();
 }
 </script>
-<script type="module" defer src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule defer src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<!-- Ionicons dimuat setelah halaman selesai render -->
+<script>
+window.addEventListener('load', function(){
+  var esm = document.createElement('script');
+  esm.type = 'module';
+  esm.src = 'https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js';
+  document.body.appendChild(esm);
+  var nomod = document.createElement('script');
+  nomod.setAttribute('nomodule','');
+  nomod.src = 'https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js';
+  document.body.appendChild(nomod);
+}, {once:true});
+</script>
 </body>
 </html>
