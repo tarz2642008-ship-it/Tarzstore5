@@ -16,9 +16,9 @@
 <!-- Font: preconnect + async load untuk hindari render-blocking -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Orbitron:wght@700;900&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
 /* ── RESET & ROOT ── */
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -129,7 +129,7 @@ header::after{
 .logo-icon img{width:100%;height:100%;object-fit:cover;}
 
 .logo-name{
-  font-family:'Orbitron',-apple-system,sans-serif;
+  font-family:'Space Grotesk',-apple-system,sans-serif;
   font-size:1.4rem;font-weight:900;letter-spacing:2px;
   background:linear-gradient(135deg,#fff 30%,var(--cyan));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
@@ -223,7 +223,7 @@ header::after{
 }
 .stat:last-child::after{display:none;}
 .stat-num{
-  font-family:'Orbitron',sans-serif;
+  font-family:'Space Grotesk',sans-serif;
   font-size:1.5rem;font-weight:900;color:var(--blue2);
   transition:color var(--t-fast) var(--ease);
 }
@@ -315,7 +315,7 @@ header::after{
   font-size:1.2rem;flex-shrink:0;
 }
 .tab-header-title{
-  font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.8px;
+  font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.8px;
   background:linear-gradient(135deg,#fff,var(--blue2));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
@@ -378,6 +378,8 @@ header::after{
 @media(hover:none){
   .card:hover{transform:none;border-color:var(--border);}
   .card:hover::before{opacity:0;}
+  .buy-btn:hover{opacity:1;transform:none;}
+  .buy-btn:hover::after{left:-110%;}
 }
 
 /* PLATFORM LABEL */
@@ -431,7 +433,7 @@ header::after{
   content:attr(data-label);
   position:absolute;inset:0;
   display:flex;align-items:center;justify-content:center;
-  font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;
+  font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;
   color:rgba(29,110,245,.35);letter-spacing:2px;z-index:0;
 }
 /* Gradient overlay */
@@ -530,7 +532,7 @@ header::after{
 }
 .modal-header-text{flex:1;min-width:0;}
 .modal-product-name{
-  font-family:'Orbitron',sans-serif;
+  font-family:'Space Grotesk',sans-serif;
   font-size:.95rem;font-weight:900;letter-spacing:.6px;
   background:linear-gradient(135deg,#fff 30%,var(--cyan));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
@@ -634,7 +636,7 @@ header::after{
   color:var(--text2);text-transform:uppercase;margin-bottom:5px;
 }
 .price-opt-amount{
-  font-family:'Orbitron',sans-serif;
+  font-family:'Space Grotesk',sans-serif;
   font-size:.88rem;font-weight:900;
   color:#fff;line-height:1.1;
 }
@@ -656,7 +658,7 @@ header::after{
 }
 .modal-summary-label{font-size:10px;color:var(--text2);letter-spacing:.5px;}
 .modal-summary-val{
-  font-family:'Orbitron',sans-serif;font-size:.85rem;font-weight:700;
+  font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:700;
   color:var(--cyan);
 }
 .modal-cta{
@@ -751,7 +753,7 @@ header::after{
   background:linear-gradient(90deg,transparent,var(--blue),transparent);
 }
 .social-title{
-  font-family:'Orbitron',sans-serif;
+  font-family:'Space Grotesk',sans-serif;
   font-size:.78rem;font-weight:700;letter-spacing:3px;
   color:var(--text2);text-transform:uppercase;
   margin-bottom:18px;
@@ -823,39 +825,199 @@ footer::before{
 
 /* ── MOBILE ── */
 @media(max-width:640px){
-  header{padding:13px 4%;}
-  .logo-name{font-size:1.15rem;}
-  .hero{padding:28px 4% 36px;}
-  .hero h2{font-size:1.9rem;}
-  .stats{gap:20px;}
-  .stat-num{font-size:1.25rem;}
-  .products,.tabs-wrap{padding-left:4%;padding-right:4%;}
-  .product-grid{gap:8px;grid-template-columns:repeat(3,1fr);}
-  .product-image{height:86px;}
-  .card{padding:8px;border-radius:12px;}
-  .card h4{font-size:.7rem;min-height:2.4em;}
-  .card>p{font-size:10.5px;}
-  .buy-btn{font-size:10px;padding:7px 6px;}
-  .modal-sheet{border-radius:22px 22px 0 0;}
-  .modal-header{padding:14px 16px 13px;gap:12px;}
-  .modal-header-icon{width:42px;height:42px;font-size:1.2rem;border-radius:12px;}
-  .modal-product-name{font-size:.85rem;}
-  .modal-scroll{padding:16px 16px 0;}
-  .modal-footer{padding:14px 16px 24px;}
-  .price-grid{grid-template-columns:repeat(2,1fr);gap:7px;}
-  .price-opt{padding:12px 11px;}
-  .price-opt-amount{font-size:.78rem;}
-  .tab-btn{padding:10px 14px;font-size:.76rem;letter-spacing:.2px;}
-  .tab-btn .tab-icon{font-size:.82rem;}
+  /* HEADER */
+  header{padding:11px 4%;}
+  .logo-icon{width:38px;height:38px;border-radius:10px;}
+  .logo-name{font-size:1.1rem;letter-spacing:1.5px;}
+  .logo-sub{font-size:8px;letter-spacing:2px;}
+  .status-pill{padding:6px 10px;font-size:10px;gap:5px;letter-spacing:1px;}
+  .dot{width:5px;height:5px;}
+
+  /* BANNER */
+  .banner-slider{width:calc(100% - 20px);border-radius:14px;margin-top:12px;}
+  .banner-slide img{max-height:180px;}
+
+  /* STATS — 2×2 grid para hemat ruang */
+  .stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    margin-top:20px;
+    margin-left:4%;margin-right:4%;
+    background:rgba(255,255,255,.03);
+    border:1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+  }
+  .stat{
+    padding:14px 10px;
+    text-align:center;
+    border-right:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+  }
+  .stat:nth-child(2){border-right:none;}
+  .stat:nth-child(3){border-bottom:none;}
+  .stat:nth-child(4){border-right:none;border-bottom:none;}
+  .stat::after{display:none;}
+  .stat-num{font-size:1.3rem;}
+  .stat-label{font-size:9.5px;letter-spacing:1.5px;}
+
+  /* TABS */
+  .tabs-wrap{margin:20px 4% 20px;justify-content:flex-start;}
+  .tabs{gap:0;border-radius:14px;padding:4px;}
+  .tab-btn{
+    padding:9px 12px;
+    font-size:.75rem;
+    letter-spacing:.1px;
+    min-height:36px;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .tab-btn .tab-icon{font-size:.8rem;}
   .tab-count{display:none;}
-  .tab-header{margin-bottom:16px;}
-  .tab-header-title{font-size:.92rem;}
-  .tab-header-icon{width:36px;height:36px;font-size:1rem;}
-  .platform-label{font-size:8px;padding:2px 6px;}
-  .status-pill{padding:6px 11px;font-size:10px;}
+  .tab-indicator{border-radius:10px;}
+
+  /* PRODUCTS */
+  .products{padding:0 4% 60px;}
+  .tab-header{margin-bottom:14px;padding-bottom:14px;}
+  .tab-header-title{font-size:.9rem;}
+  .tab-header-icon{width:34px;height:34px;font-size:.95rem;border-radius:10px;}
+  .tab-header-desc{font-size:10.5px;}
+
+  /* GRID — 2 KOLOM, lebih besar dan nyaman */
+  .product-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+
+  /* CARD */
+  .card{
+    padding:10px;
+    border-radius:14px;
+  }
+  .card:hover{transform:none;border-color:var(--border);}
+  .card:hover::before{opacity:0;}
+
+  /* IMAGE — lebih tinggi = visual lebih kuat */
+  .product-image{
+    height:120px;
+    border-radius:10px;
+    margin-bottom:9px;
+  }
+
+  /* PLATFORM LABEL */
+  .platform-label{
+    font-size:8.5px;
+    padding:2px 7px;
+    border-radius:5px;
+    top:7px;left:7px;
+  }
+
+  /* CARD TEXT */
+  .card h4{
+    font-size:.78rem;
+    font-weight:700;
+    min-height:auto;
+    line-height:1.25;
+    margin-bottom:5px;
+    -webkit-line-clamp:2;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+  .card-sold{
+    font-size:9.5px;
+    margin-bottom:9px;
+    gap:3px;
+  }
+  .card>p{font-size:10px;line-height:1.5;margin-bottom:10px;}
+
+  /* BUY BUTTON — full width, mudah dipencet */
+  .buy-btn{
+    font-size:11px;
+    font-weight:700;
+    padding:10px 8px;
+    border-radius:9px;
+    min-height:38px;
+    letter-spacing:.2px;
+    gap:5px;
+  }
+
+  /* MODAL */
+  .modal-sheet{border-radius:24px 24px 0 0;max-height:95vh;}
+  .modal-header{padding:14px 16px 12px;gap:11px;}
+  .modal-header-icon{width:44px;height:44px;font-size:1.25rem;border-radius:12px;}
+  .modal-product-name{font-size:.88rem;}
+  .modal-product-desc{font-size:11px;}
+  .modal-scroll{padding:16px 16px 0;}
+  .modal-footer{padding:12px 16px 28px;}
+  .modal-selected-summary{padding:9px 12px;margin-bottom:10px;}
+  .modal-summary-val{font-size:.82rem;}
+  .modal-cta{padding:14px 16px;font-size:.88rem;border-radius:12px;min-height:48px;}
+  .price-grid{grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px;}
+  .price-opt{padding:12px 10px;border-radius:12px;}
+  .price-opt-duration{font-size:9.5px;}
+  .price-opt-amount{font-size:.82rem;}
+
+  /* TOAST */
+  .toast{font-size:12.5px;padding:10px 16px;border-radius:10px;bottom:20px;}
+
+  /* DOWNLOAD MODAL */
+  .dl-sheet{border-radius:24px 24px 0 0;max-height:95vh;}
+  .dl-header{padding:14px 16px 12px;gap:11px;}
+  .dl-header-icon{width:46px;height:46px;border-radius:13px;font-size:1.35rem;}
+  .dl-product-name{font-size:.92rem;}
+  .dl-warning{margin:12px 16px 0;padding:11px 13px;border-radius:12px;}
+  .dl-warning-desc{font-size:11px;}
+  .dl-scroll{padding:14px 16px 0;}
+  .dl-action-btn{padding:13px 14px;border-radius:12px;gap:10px;}
+  .dl-btn-icon-wrap{width:36px;height:36px;border-radius:9px;}
+  .dl-btn-title{font-size:.82rem;}
+  .dl-btn-subtitle{font-size:9.5px;}
+  .dl-footer{padding:12px 16px 28px;}
 }
 
-/* ── REDUCED MOTION ── */
+/* ── TOUCH ACTIVE STATES — feedback sentuhan lebih responsif ── */
+@media(hover:none) and (pointer:coarse){
+  .buy-btn:active{
+    transform:scale(.96) translate3d(0,1px,0);
+    opacity:.82;
+    transition-duration:.08s;
+  }
+  .card:active{
+    transform:scale(.985);
+    border-color:rgba(29,110,245,.3);
+    transition-duration:.1s;
+  }
+  .tab-btn:active{opacity:.75;transition-duration:.08s;}
+  .modal-cta:active{transform:scale(.97);opacity:.85;transition-duration:.08s;}
+  .dl-action-btn:active{transform:scale(.97);transition-duration:.08s;}
+  .social-btn:active{transform:scale(.92);transition-duration:.08s;}
+}
+
+/* ── MID-MOBILE 480-640px (layar medium) ── */
+@media(min-width:480px) and (max-width:640px){
+  .product-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+  .product-image{height:136px;}
+  .card{padding:11px;}
+  .card h4{font-size:.82rem;}
+  .buy-btn{font-size:12px;padding:11px 10px;min-height:40px;}
+  .banner-slide img{max-height:210px;}
+  .stat-num{font-size:1.4rem;}
+}
+
+/* ── VERY SMALL PHONES (≤360px) ── */
+@media(max-width:360px){
+  .product-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .product-image{height:108px;}
+  .card{padding:8px;border-radius:12px;}
+  .card h4{font-size:.74rem;}
+  .buy-btn{font-size:10.5px;padding:9px 6px;min-height:36px;}
+  .tab-btn{padding:8px 9px;font-size:.72rem;}
+  .logo-name{font-size:1rem;}
+  .banner-slide img{max-height:155px;}
+}
+
+
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;transition-duration:.001ms!important;animation-iteration-count:1!important;}
 }
@@ -967,7 +1129,7 @@ footer::before{
 .dl-header-icon img{width:100%;height:100%;object-fit:cover;border-radius:15px;}
 .dl-header-info{flex:1;min-width:0;}
 .dl-product-name{
-  font-family:'Orbitron',sans-serif;
+  font-family:'Space Grotesk',sans-serif;
   font-size:1rem;font-weight:900;letter-spacing:.8px;
   background:linear-gradient(135deg,#fff 30%,var(--cyan));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
