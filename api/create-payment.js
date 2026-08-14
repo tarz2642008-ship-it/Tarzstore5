@@ -36,19 +36,17 @@ export default async function handler(req, res) {
 
     const data = await resp.json();
 
-    if (!resp.ok || !data || data.status !== 'success') {
+    if (!resp.ok || !data || data.success !== true) {
       console.error('BuatQris create error:', data);
       return res.status(502).json({ ok: false, error: 'Gagal membuat QRIS. Coba lagi.' });
     }
 
-    // BuatQris mengembalikan transaction_id & qr image/string — sesuaikan field
-    // ini dengan respons asli dari dashboard BuatQris kamu kalau namanya beda.
-    const transactionId = data.transaction_id || data.data?.transaction_id;
-    const qrString = data.qr_string || data.data?.qr_string;
-    const qrImageUrl = data.qr_image_url || data.data?.qr_image_url;
+    // BuatQris mengirim QR sebagai gambar base64 langsung di data.qris_image
+    const transactionId = data.data?.transaction_id;
+    const qrImageUrl = data.data?.qris_image; // sudah berformat "data:image/png;base64,..."
 
-    if (!transactionId) {
-      console.error('Missing transaction_id in BuatQris response:', data);
+    if (!transactionId || !qrImageUrl) {
+      console.error('Missing transaction_id/qris_image in BuatQris response:', data);
       return res.status(502).json({ ok: false, error: 'Respons BuatQris tidak lengkap.' });
     }
 
@@ -65,7 +63,6 @@ export default async function handler(req, res) {
       ok: true,
       orderId,
       amount: VIP_PRICE,
-      qrString,
       qrImageUrl
     });
   } catch (err) {
