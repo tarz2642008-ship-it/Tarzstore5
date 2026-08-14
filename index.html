@@ -1608,6 +1608,19 @@ footer::before{
 }
 .vip-back-link:hover{color:var(--cyan);}
 
+.vip-qris-download-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  width:100%;border:1.5px solid rgba(0,212,255,.25);border-radius:10px;
+  padding:11px;background:rgba(0,212,255,.05);
+  color:var(--cyan);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.78rem;
+  letter-spacing:.3px;cursor:pointer;margin-bottom:10px;
+  transition:background var(--t-fast),border-color var(--t-fast),transform var(--t-fast);
+  -webkit-tap-highlight-color:transparent;outline:none;-webkit-appearance:none;appearance:none;
+}
+.vip-qris-download-btn:hover{background:rgba(0,212,255,.1);border-color:rgba(0,212,255,.4);}
+.vip-qris-download-btn:active{transform:scale(.97);}
+.vip-qris-download-btn svg{width:14px;height:14px;flex-shrink:0;}
+
 @media(max-width:380px){
   .key-head{padding:26px 20px 16px;}
   .key-body{padding:2px 20px 22px;}
@@ -2131,7 +2144,7 @@ footer::before{
         <div class="key-success-title" id="keySuccessTitle">Key VIP Benar!</div>
         <div class="key-success-sub" id="keySuccessSub">Semua produk kini terbuka. Mengalihkan ke download...</div>
         <button type="button" class="key-btn-login hide" id="keyDownloadAgainBtn" onclick="downloadUnlockedProduct()" style="margin-top:16px;">
-          DOWNLOAD LAGI
+          DOWNLOAD
         </button>
       </div>
 
@@ -3238,6 +3251,7 @@ async function isVipUnlockedAsync(){
 }
 
 let _qrisPollTimer = null;
+let _vipQrisImageUrl = null;
 
 /* dipanggil dari tombol "JOIN VIP - Rp10.000" di dalam key modal (yang sudah terbuka) */
 async function startVipPayment(){
@@ -3296,6 +3310,8 @@ function renderVipQris(data){
   document.getElementById('keySub').innerHTML =
     'Total: <b>Rp' + data.amount.toLocaleString('id-ID') + '</b> — QRIS berlaku 15 menit';
 
+  _vipQrisImageUrl = data.qrImageUrl;
+
   const body = document.getElementById('vipKeyFormBody');
   body.classList.add('show');
   body.innerHTML = `
@@ -3306,9 +3322,35 @@ function renderVipQris(data){
       <div id="vipPayStatus" style="font-size:12px;color:var(--text2);margin-bottom:14px;">
         Menunggu pembayaran...
       </div>
+      <button type="button" class="vip-qris-download-btn" onclick="downloadVipQris()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+        DOWNLOAD QRIS
+      </button>
       <button type="button" class="vip-back-link" onclick="cancelVipPayment()">← batal</button>
     </div>
   `;
+}
+
+/* unduh gambar QRIS sebagai file .png ke perangkat user (bukan sekadar buka tab baru) */
+async function downloadVipQris(){
+  if(!_vipQrisImageUrl) return;
+  try{
+    const res = await fetch(_vipQrisImageUrl);
+    const blob = await res.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = 'QRIS-VIP-TarzStore.png';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(blobUrl), 4000);
+    showToast('QRIS berhasil diunduh.', 'success');
+  }catch(e){
+    /* fallback kalau gagal fetch (mis. CORS) -> buka di tab baru supaya user bisa save manual */
+    window.open(_vipQrisImageUrl, '_blank', 'noopener,noreferrer');
+    showToast('Gagal unduh langsung, membuka gambar di tab baru.', 'error');
+  }
 }
 
 async function pollVipPayment(orderId){
@@ -3342,10 +3384,12 @@ async function pollVipPayment(orderId){
 
 function cancelVipPayment(){
   clearInterval(_qrisPollTimer);
+  _vipQrisImageUrl = null;
   showVipGate();
 }
 
 function showVipPaymentSuccess(){
+  _vipQrisImageUrl = null;
   document.getElementById('vipKeyFormBody').classList.remove('show');
   document.getElementById('keySuccessWrap').classList.add('show');
   document.getElementById('keySuccessTitle').textContent = 'Pembayaran Berhasil!';
