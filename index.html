@@ -1570,6 +1570,12 @@ footer::before{
 .key-btn-vipbuy:active{transform:translate3d(0,0,0) scale(.97);filter:brightness(.94);transition-duration:.1s;}
 .key-btn-vipbuy svg{width:16px;height:16px;flex-shrink:0;}
 
+.key-btn-vipbuy-wa{
+  background:linear-gradient(135deg,#25d366,#1da851);
+  box-shadow:0 6px 22px rgba(37,211,102,.22);
+  margin-bottom:0;
+}
+
 .key-btn-vipkey{
   width:100%;border:1.5px solid rgba(255,255,255,.1);border-radius:10px;padding:13.5px;
   background:rgba(255,255,255,.02);
@@ -2086,8 +2092,12 @@ footer::before{
         </button>
         <!-- Hanya tampil untuk produk tab CHEAT (lihat showVipGate()) -->
         <button type="button" class="key-btn-vipbuy" id="keyBtnJoinVip" onclick="startVipPayment()" style="display:none;margin-top:10px;margin-bottom:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 8h18M7 15h3"/></svg>
+          BUY VIP VIA QRIS
+        </button>
+        <button type="button" class="key-btn-vipbuy key-btn-vipbuy-wa" id="keyBtnJoinVipWa" onclick="openVipWhatsApp()" style="display:none;margin-top:10px;margin-bottom:0;">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.986.579 3.836 1.578 5.392L2 22l4.735-1.55A9.955 9.955 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.13c-1.775 0-3.42-.522-4.804-1.42l-.345-.213-3.155 1.034 1.048-3.075-.226-.353A8.096 8.096 0 0 1 3.87 12c0-4.487 3.643-8.13 8.13-8.13 4.487 0 8.13 3.643 8.13 8.13 0 4.487-3.643 8.13-8.13 8.13z"/></svg>
-          JOIN VIP - Rp10.000
+          BUY VIP VIA WHATSAPP
         </button>
       </div>
 
@@ -2974,7 +2984,7 @@ function showVipGate(){
   document.getElementById('vipGateBody').classList.remove('hide');
   document.getElementById('vipKeyFormBody').classList.remove('show');
   document.getElementById('keySuccessWrap').classList.remove('show');
-  document.getElementById('keyTitle').textContent = 'Khusus Member VIP';
+  document.getElementById('keyTitle').textContent = 'VIP RP 10.000';
 
   const productLabel = escapeHtml(_keyProduct || 'produk ini');
   document.getElementById('keySub').innerHTML = 'Silahkan <b>' + '</b> <b>JOIN VIP</b> agar bisa akses semua cheat';
@@ -2982,6 +2992,10 @@ function showVipGate(){
   const joinVipBtn = document.getElementById('keyBtnJoinVip');
   if(joinVipBtn){
     joinVipBtn.style.display = (_keySourceTab === 'cheat') ? 'flex' : 'none';
+  }
+  const joinVipWaBtn = document.getElementById('keyBtnJoinVipWa');
+  if(joinVipWaBtn){
+    joinVipWaBtn.style.display = (_keySourceTab === 'cheat') ? 'flex' : 'none';
   }
 }
 
@@ -3242,6 +3256,16 @@ async function startVipPayment(){
     showToast('Gagal terhubung ke server pembayaran.', 'error');
     showVipGate();
   }
+}
+
+/* dipanggil dari tombol "BUY VIP VIA WHATSAPP" di dalam key modal — langsung
+   arahkan ke WhatsApp admin dengan pesan siap kirim, tanpa lewat QRIS */
+function openVipWhatsApp(){
+  showToast('Mengalihkan ke WhatsApp...','success');
+  const msg = `Halo Tarz Store! Saya mau join VIP (${VIP_PRICE_TEXT}) untuk akses semua cheat.\n\nMohon diproses ya, terima kasih`;
+  setTimeout(()=>{
+    window.open('https://wa.me/'+VIP_WA_NUMBER+'?text='+encodeURIComponent(msg),'_blank','noopener,noreferrer');
+  }, 350);
 }
 
 /* dipanggil dari tombol "JOIN VIP" di file card (tab FILE HS) — key modal belum terbuka,
