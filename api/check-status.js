@@ -43,7 +43,12 @@ export default async function handler(req, res) {
       body: JSON.stringify(payload)
     });
     const data = await resp.json();
-    const remoteStatus = data.status || data.data?.status; // sesuaikan field asli dari BuatQris
+    if (!resp.ok || !data || data.success !== true) {
+      console.error('BuatQris check-status error:', data);
+      return res.status(200).json({ ok: true, status: 'pending' }); // jangan hentikan polling hanya karena 1x gagal cek
+    }
+    // sesuaikan lagi field ini kalau log Vercel menunjukkan nama berbeda
+    const remoteStatus = data.data?.status || data.data?.transaction_status;
 
     if (remoteStatus === 'success') {
       const vipToken = await markOrderPaidAndUnlock(orderId, order);
